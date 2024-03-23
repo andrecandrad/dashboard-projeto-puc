@@ -1,4 +1,3 @@
-import "./App.css";
 import Button from "@mui/material/Button";
 import Chart from "./components/Chart";
 
