@@ -15,11 +15,6 @@ const BottomChartRows = () => {
       legend: {
         data: ['Taxa de condomínio', 'Despesas']
       },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        }
-      },
       grid: {
         left: '3%',
         right: '4%',

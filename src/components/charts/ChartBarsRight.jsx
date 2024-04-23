@@ -45,7 +45,6 @@ const RightChartBars = () => {
           formatter: (params) => {
             return `R$ ${(+params.value[0]).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
           },
-          
           valueAnimation: true
         },
         itemStyle: {

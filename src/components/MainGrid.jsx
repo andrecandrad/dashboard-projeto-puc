@@ -18,7 +18,7 @@ const MainGrid = () => {
         <div className="p-3">
 
 
-          <div className="bg-gray-300 py-7 rounded-xl flex flex-col gap-3">
+          <div className="bg-gray-00 py-7 rounded-xl flex flex-col gap-3">
             <div className="flex justify-center items-center gap-5">
               <RiMoneyDollarCircleFill className="text-7xl text-green-600" />
               <h2 className="text-3xl font-semibold">Taxa de condomínio</h2>
@@ -45,7 +45,7 @@ const MainGrid = () => {
 
         <div className="p-3">
 
-          <div className="bg-gray-300 py-7 rounded-xl flex flex-col gap-3">
+          <div className="bg-gray-200 py-7 rounded-xl flex flex-col gap-3">
             <div className="flex justify-center items-center gap-5">
               <RiMoneyDollarCircleLine className="text-7xl text-red-600" />
               <h2 className="text-3xl font-semibold">Despesas</h2>
@@ -82,7 +82,7 @@ const MainGrid = () => {
       <div className="rounded-sm col-span-1 row-span-5">
 
         <div className="p-3">
-          <div className="bg-gray-300 py-7 rounded-xl flex flex-col gap-3">
+          <div className="bg-gray-200 py-7 rounded-xl flex flex-col gap-3">
             <div className="flex justify-center items-center gap-5">
               <FaCoins className="text-7xl text-cyan-600" />
               <h2 className="text-3xl font-semibold">Saldo</h2>
