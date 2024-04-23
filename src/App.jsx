@@ -1,11 +1,11 @@
 import "./App.css";
-import Button from "@mui/material/Button";
-import Chart from "./components/Chart";
 import MainGrid from "./components/MainGrid";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div className="w-screen h-screen">
+      <Header></Header>
       <MainGrid></MainGrid>
     </div>
   );
