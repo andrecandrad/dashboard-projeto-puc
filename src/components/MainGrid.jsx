@@ -12,7 +12,7 @@ const MainGrid = () => {
   //const maxValue = Math.max(...valores);
 
   return (
-    <div className="grid grid-cols-3 grid-rows-5 gap-2 bg-slate-100 w-full h-full p-3">
+    <div className="grid grid-cols-3 grid-rows-5 gap-2 bg-slate-100 w-full h-full">
 
       <div className="rounded-sm col-span-1 row-span-3">
         <div className="p-3">
@@ -110,7 +110,7 @@ const MainGrid = () => {
 
       </div>
 
-      <div className="rounded-sm col-span-2 row-span-2 pt-16">
+      <div className="rounded-sm col-span-2 row-span-2 pt-8">
         <BottomChartRows />
       </div>
 
