@@ -1,43 +1,60 @@
 import Logo from "../assets/img/logo.png";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import Datepicker from "react-tailwindcss-datepicker";
+import { useState } from "react";
+
+
 
 const Header = () => {
+
+  const [value, setValue] = useState({
+    startDate: new Date(),
+    endDate: undefined
+  });
+
+  const handleValueChange = (newValue) => {
+    console.log("newValue:", newValue);
+    setValue(newValue);
+  }
+
   return (
     <>
       <header>
         <nav className="bg-gray-300 border-gray-200 lg:px-6 py-0.5">
           <div className="flex flex-wrap justify-between mx-auto items-center max-w-screen-xl">
+
             <a href="#" className="flex items-center" >
               <img src={Logo} alt="Logo" className="mr-3 h-14" />
             </a>
 
-            <div className="flex px-6">
-              <Tippy content="teste">
-                <button className="bg-transparent hover:bg-slate-500 text-slate-700 font-semibold hover:text-white py-2 px-3.5 border-2 border-slate-700 hover:border-transparent rounded-xl">
+            <div className="flex flex-row px-6 gap-2">
+
+              <Tippy content="Faça aqui o Upload do PDF">
+                <button className="bg-transparent hover:bg-slate-600 text-slate-700 font-semibold hover:text-white py-2 px-3.5 border-2 border-slate-700 hover:border-transparent rounded-xl">
                   Upload
                 </button>
               </Tippy>
 
-              <div date-rangepicker className="flex items-center">
-                <div className="relative">
-                  <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                  </div>
-                  <input name="start" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" />
-                </div>
-                <span className="mx-4 text-gray-500">to</span>
-                <div className="relative">
-                  <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                    </svg>
-                  </div>
-                  <input name="end" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" />
-                </div>
-              </div>
+              <form className="mx-auto">
+                <select id="countries" className="bg-transparent border-2 border-slate-700 text-gray-900 rounded-xl focus:border-slate-800 block font-semibold py-2 px-3.5">
+                  <option selected>Selecione o condomínio</option>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="FR">France</option>
+                  <option value="DE">Germany</option>
+                </select>
+              </form>
+
+              
+              <Datepicker
+                className="bg-transparent hover:bg-slate-600 text-slate-700 font-semibold"
+                value={value}
+                onChange={handleValueChange}
+                primaryColor={"blue"}
+                placeholder="Selecione o período"
+              />
+              
             </div>
           </div>
         </nav>
