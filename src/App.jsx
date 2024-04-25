@@ -1,6 +1,6 @@
 import "./App.css";
-import MainGrid from "./components/MainGrid";
 import Header from "./components/Header";
+import MainGrid from "./components/MainGrid";
 
 function App() {
   return (
