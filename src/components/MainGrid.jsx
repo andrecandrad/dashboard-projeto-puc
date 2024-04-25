@@ -1,10 +1,10 @@
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { FaCoins } from "react-icons/fa";
-import RightChartBars from "./charts/ChartBarsRight";
-import LeftChartBars from "./charts/ChartBarsLeft";
-import CenterChartPie from "./charts/ChartPie";
-import BottomChartRows from "./charts/ChartRows";
+import RightChartBars from "./Charts/ChartBarsRight";
+import LeftChartBars from "./Charts/ChartBarsLeft";
+import CenterChartPie from "./Charts/ChartPie";
+import BottomChartRows from "./Charts/ChartRows";
 
 const MainGrid = () => {
   //const colors = [];
@@ -12,7 +12,7 @@ const MainGrid = () => {
   //const maxValue = Math.max(...valores);
 
   return (
-    <div className="grid grid-cols-3 grid-rows-5 gap-2 bg-slate-100 w-full h-full">
+    <div className="grid grid-cols-3 grid-rows-5 gap-2 bg-slate-100">
 
       <div className="rounded-sm col-span-1 row-span-3">
         <div className="p-3">

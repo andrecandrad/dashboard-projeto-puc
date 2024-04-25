@@ -1,6 +1,4 @@
 import Logo from "../assets/img/logo.png";
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 
 const Header = () => {
   return (
@@ -13,11 +11,6 @@ const Header = () => {
             </a>
 
             <div className="flex px-6">
-              <Tippy content="teste">
-                <button className="bg-transparent hover:bg-slate-500 text-slate-700 font-semibold hover:text-white py-2 px-3.5 border-2 border-slate-700 hover:border-transparent rounded-xl">
-                  Upload
-                </button>
-              </Tippy>
 
               <div date-rangepicker className="flex items-center">
                 <div className="relative">
