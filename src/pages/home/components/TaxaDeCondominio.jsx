@@ -6,11 +6,14 @@ const TaxaDeCondominio = (props) => {
   return (
     <>
       <div className="rounded-sm col-span-1 row-span-3">
-        <div className="p-3">
-          <div className="bg-gray-200 py-4 rounded-xl flex flex-col gap-3">
+        <div className="p-2">
+          <div className="bg-gray-300 py-4 rounded-xl flex flex-col gap-3">
             <div className="flex justify-center items-center gap-5">
               <RiMoneyDollarCircleFill className="text-7xl text-green-600" />
-              <h2 className="text-3xl font-semibold">Taxa de condomínio</h2>
+              <div className="flex-col text-center items-start">
+                <h2 className="text-sm font-normal">(Taxa de condomínio)</h2>
+                <h2 className="text-3xl font-semibold">Entrada</h2>
+              </div>
             </div>
             <div className="flex justify-center items-center gap-5">
               <h4 className="text-xl font-semibold">Valor total no período:</h4>

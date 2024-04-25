@@ -4,8 +4,6 @@ import 'tippy.js/dist/tippy.css';
 import Datepicker from "react-tailwindcss-datepicker";
 import { useState } from "react";
 
-
-
 const Header = () => {
 
   const [value, setValue] = useState({
@@ -27,7 +25,7 @@ const Header = () => {
               <a href="#" className="flex items-center" >
                 <img src={Logo} alt="Logo" className="mr-3 h-14" />
               </a>
-              <div className="flex flex-row px-6 gap-2">
+              <div className="flex flex-row gap-2">
                 <Tippy content="Faça aqui o Upload do PDF">
                   <button className="bg-transparent hover:bg-slate-600 text-slate-700 font-semibold hover:text-white py-2 px-3.5 border-2 border-slate-700 hover:border-transparent rounded-xl">
                     Upload
@@ -35,21 +33,30 @@ const Header = () => {
                 </Tippy>
                 <form className="mx-auto">
                   <select id="countries" className="bg-transparent border-2 border-slate-700 text-gray-900 rounded-xl focus:border-slate-800 block font-semibold py-2 px-3.5">
-                    <option selected>Selecione o condomínio</option>
+                    <option className="hidden" selected>Condomínios cadastrados </option>
                     <option value="US">United States</option>
                     <option value="CA">Canada</option>
                     <option value="FR">France</option>
                     <option value="DE">Germany</option>
                   </select>
                 </form>
-                <Datepicker
+                {/* <Datepicker
                   className="bg-transparent hover:bg-slate-600 text-slate-700 font-semibold"
                   value={value}
                   onChange={handleValueChange}
                   primaryColor={"blue"}
                   placeholder="Selecione o período"
-                />
+                /> */}
+                <div className="flex flex-row pl-7">
+                  <button className="bg-transparent hover:bg-slate-600 text-slate-700 font-semibold hover:text-white py-2 px-5 border-2 border-red-600 hover:border-transparent rounded-xl">
+                    <h1 className="text-red-600">Sair</h1>
+                  </button>
+                </div>
               </div>
+
+
+
+
             </div>
           </nav>
         </header>

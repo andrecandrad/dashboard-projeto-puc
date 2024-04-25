@@ -8,7 +8,7 @@ const MainGrid = () => {
   const valores = [158661.0, 14064.0, 36837.59];
 
   return (
-    <div className="grid grid-cols-3 grid-rows-5 gap-1 bg-slate-100 px-2">
+    <div className="grid grid-cols-3 grid-rows-5 bg-slate-100">
       <TaxaDeCondominio valores={valores} />
       <Despesas valores={valores} />
       <Saldo valores={valores} />

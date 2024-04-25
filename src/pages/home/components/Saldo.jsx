@@ -8,8 +8,8 @@ const Saldo = (props) => {
   return (
     <>
       <div className="rounded-sm col-span-1 row-span-5">
-        <div className="p-3">
-          <div className="bg-gray-200 py-4 rounded-xl flex flex-col gap-3">
+        <div className="p-2">
+          <div className="bg-gray-300 py-4 rounded-xl flex flex-col gap-3">
             <div className="flex justify-center items-center gap-5">
               <FaCoins className="text-7xl text-cyan-600" />
               <h2 className="text-3xl font-semibold">Saldo</h2>
