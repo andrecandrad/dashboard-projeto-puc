@@ -4,8 +4,8 @@ const LeftChartBars = () => {
 
     const option = {
       grid: {
-        width : 475,
-        left :  68,
+        width : 425,
+        left :  88,
         height: 220
        },      
        xAxis: {

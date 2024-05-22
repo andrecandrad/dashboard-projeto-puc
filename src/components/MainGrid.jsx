@@ -1,119 +1,139 @@
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import { MdAttachMoney, MdOutlineMoneyOff } from "react-icons/md";
 import { FaCoins } from "react-icons/fa";
 import RightChartBars from "./Charts/ChartBarsRight";
 import LeftChartBars from "./Charts/ChartBarsLeft";
 import CenterChartPie from "./Charts/ChartPie";
 import BottomChartRows from "./Charts/ChartRows";
+import TopicMainBox from "./TopicMainBox";
+import ValuesComparison from "./ValuesComparison";
 
 const MainGrid = () => {
-  //const colors = [];
   const valores = [158661.0, 14064.0, 36837.59];
-  //const maxValue = Math.max(...valores);
+
+  const topicsInfo = {
+    taxaCondominio: {
+      title: "Taxa de condomínio",
+      valueDescription: "Valor total no período",
+      value: "1.697.602,55",
+      icon: <MdAttachMoney />,
+      color: "green",
+      values: [
+        {
+          id: "maxValue",
+          value: null,
+        },
+        {
+          id: "avgValue",
+          value: 36837.59,
+        },
+        {
+          id: "minValue",
+          value: null,
+        },
+      ],
+    },
+    despesas: {
+      title: "Despesas",
+      valueDescription: "Valor total no período",
+      value: "1.828.049,67",
+      icon: <MdOutlineMoneyOff />,
+      color: "red",
+      values: [
+        {
+          id: "maxValue",
+          value: 158661,
+        },
+        {
+          id: "avgValue",
+          value: 36837.59,
+        },
+        {
+          id: "minValue",
+          value: 14064,
+        },
+      ],
+    },
+    saldo: {
+      title: "Saldo",
+      valueDescription: "Valor médio no período",
+      value: "50.302,07",
+      icon: <MdAttachMoney />,
+      color: "cyan",
+      values: [
+        {
+          id: "maxValue",
+          value: 158661,
+        },
+        {
+          id: "avgValue",
+          value: null,
+        },
+        {
+          id: "minValue",
+          value: 14064,
+        },
+      ],
+    },
+  };
+
+  const { taxaCondominio, despesas, saldo } = topicsInfo;
 
   return (
-    <div className="grid grid-cols-3 grid-rows-5 gap-2 bg-slate-100">
-
+    <div className="grid grid-cols-3 grid-rows-5 gap-2 bg-slate-100 p-7">
       <div className="rounded-sm col-span-1 row-span-3">
         <div className="p-3">
+          <TopicMainBox
+            title={taxaCondominio.title}
+            valueDescription={taxaCondominio.valueDescription}
+            value={taxaCondominio.value}
+            icon={taxaCondominio.icon}
+            color={taxaCondominio.color}
+          />
 
+          <ValuesComparison
+            values={taxaCondominio.values}
+            color={taxaCondominio.color}
+          />
 
-          <div className="bg-gray-200 py-7 rounded-xl flex flex-col gap-3">
-            <div className="flex justify-center items-center gap-5">
-              <RiMoneyDollarCircleFill className="text-7xl text-green-600" />
-              <h2 className="text-3xl font-semibold">Taxa de condomínio</h2>
-            </div>
-            <div className="flex justify-center items-center gap-5">
-              <h4 className="text-xl font-semibold">Valor total no período:</h4>
-              <h3 className="text-2xl text-green-600 font-bold">R$ 1.697.602,55</h3>
-            </div>
-          </div>
-
-          <div className="flex flex-col text-lg gap-2 mt-7">
-            <div className="bg-green-600/40 flex justify-between px-4 py-1 rounded-full min-2 w-8/12">
-              <p className="font-semibold">Valor Médio</p>{" "}
-              <p className="text-green-800 font-semibold">{`R$ ${valores[2]}`}</p>
-            </div>
-          </div>
+          <LeftChartBars />
         </div>
-
-        <LeftChartBars />
-
       </div>
 
       <div className="rounded-sm  col-span-1 row-span-3">
-
         <div className="p-3">
-
-          <div className="bg-gray-200 py-7 rounded-xl flex flex-col gap-3">
-            <div className="flex justify-center items-center gap-5">
-              <RiMoneyDollarCircleLine className="text-7xl text-red-600" />
-              <h2 className="text-3xl font-semibold">Despesas</h2>
-            </div>
-            <div className="flex justify-center items-center gap-5">
-              <h4 className="text-xl font-semibold">Valor total no período:</h4>
-              <h3 className="text-2xl text-red-600 font-bold">R$ 1.828.049,67</h3>
-            </div>
-          </div>
-
-
-          <div className="flex flex-col text-lg gap-2 mt-7">
-            <div className="bg-red-600/60 flex justify-between px-4 py-1 rounded-full min-2 w-11/12">
-              <p className="font-semibold">Valor Máximo</p>{" "}
-              <p className="text-red-800 font-semibold">{`R$ ${valores[0]}`}</p>
-            </div>
-
-            <div className="bg-red-600/40 flex justify-between px-4 py-1 rounded-full min-2 w-8/12">
-              <p className="font-semibold">Valor Médio</p>{" "}
-              <p className="text-red-800 font-semibold">{`R$ ${valores[2]}`}</p>
-            </div>
-
-            <div className="bg-red-600/20 flex justify-between px-4 py-1 rounded-full min-2 w-6/12">
-              <p className="font-semibold">Valor Mínimo</p>{" "}
-              <p className="text-red-800 font-semibold">{`R$ ${valores[1]}`}</p>
-            </div>
-          </div>
+          <TopicMainBox
+            title={despesas.title}
+            valueDescription={despesas.valueDescription}
+            value={despesas.value}
+            icon={despesas.icon}
+            color={despesas.color}
+          />
+          <ValuesComparison values={despesas.values} color={despesas.color} />
         </div>
 
         <CenterChartPie />
-
       </div>
 
       <div className="rounded-sm col-span-1 row-span-5">
-
         <div className="p-3">
-          <div className="bg-gray-200 py-7 rounded-xl flex flex-col gap-3">
-            <div className="flex justify-center items-center gap-5">
-              <FaCoins className="text-7xl text-cyan-600" />
-              <h2 className="text-3xl font-semibold">Saldo</h2>
-            </div>
-            <div className="flex justify-center items-center gap-5">
-              <h4 className="text-xl font-semibold">Valor médio no período:</h4>
-              <h3 className="text-2xl text-cyan-600 font-bold">R$ 50.302,07</h3>
-            </div>
-          </div>
+          <TopicMainBox
+            title={saldo.title}
+            valueDescription={saldo.valueDescription}
+            value={saldo.value}
+            icon={saldo.icon}
+            color={saldo.color}
+          />
 
-          <div className="flex flex-col text-lg gap-2 mt-7">
-            <div className="bg-cyan-600/60 flex justify-between px-4 py-1 rounded-full min-2 w-11/12">
-              <p className="font-semibold">Valor Máximo</p>{" "}
-              <p className="text-cyan-800 font-semibold">{`R$ ${valores[0]}`}</p>
-            </div>
-
-            <div className="bg-cyan-600/20 flex justify-between px-4 py-1 rounded-full min-2 w-6/12">
-              <p className="font-semibold">Valor Mínimo</p>{" "}
-              <p className="text-cyan-800 font-semibold">{`R$ ${valores[1]}`}</p>
-            </div>
-          </div>
-          <RightChartBars/>
+          <ValuesComparison values={saldo.values} color={saldo.color} />
+          <RightChartBars />
         </div>
-
-
       </div>
 
       <div className="rounded-sm col-span-2 row-span-2 pt-8">
         <BottomChartRows />
       </div>
-
     </div>
   );
 };

@@ -22,7 +22,7 @@ const RightChartBars = () => {
     grid: {
       width: 450,
       left: 90,
-      height: 220
+      height: 620
     },
     xAxis: {
       axisLabel: {
