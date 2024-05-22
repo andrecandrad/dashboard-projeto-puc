@@ -34,7 +34,7 @@ const CenterChartPie = () => {
     },
     series: [
       {
-        name: 'Despesas',
+        name: 'Access From',
         type: 'pie',
         radius: ['40%', '65%'],
         center: ['50%', '165'],

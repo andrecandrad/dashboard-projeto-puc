@@ -1,11 +1,8 @@
-import { RiMoneyDollarCircleFill } from "react-icons/ri";
-import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { MdAttachMoney, MdOutlineMoneyOff } from "react-icons/md";
-import { FaCoins } from "react-icons/fa";
-import RightChartBars from "./Charts/ChartBarsRight";
-import LeftChartBars from "./Charts/ChartBarsLeft";
-import CenterChartPie from "./Charts/ChartPie";
-import BottomChartRows from "./Charts/ChartRows";
+import RightChartBars from "../charts/ChartBarsRight";
+import LeftChartBars from "../charts/ChartBarsLeft";
+import BottomChartRows from "../charts/ChartRows";
+import CenterChartPie from "../charts/ChartPie"
 import TopicMainBox from "./TopicMainBox";
 import ValuesComparison from "./ValuesComparison";
 
