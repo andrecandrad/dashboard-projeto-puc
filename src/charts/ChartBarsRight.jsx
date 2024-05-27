@@ -21,8 +21,8 @@ const RightChartBars = () => {
     },
     grid: {
       width: 450,
-      left: 90,
-      height: 620
+      left: 80,
+      height: 220
     },
     xAxis: {
       axisLabel: {
@@ -32,6 +32,12 @@ const RightChartBars = () => {
       }
     },
     yAxis: { type: 'category' },
+    tooltip: {
+      trigger: 'item',
+      formatter: (params) => {
+        return (params.value[1] + " - R$ " + (params.value[0]).toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+      },
+    },
     series: [
       {
         type: 'bar',
@@ -43,7 +49,7 @@ const RightChartBars = () => {
           show: true,
           position: 'right',
           formatter: (params) => {
-            return `R$ ${(+params.value[0]).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+            return `${params.value[1]} ` + `R$ ${(+params.value[0]).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
           },
           valueAnimation: true
         },

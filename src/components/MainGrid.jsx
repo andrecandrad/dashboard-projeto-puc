@@ -1,14 +1,12 @@
 import { MdAttachMoney, MdOutlineMoneyOff } from "react-icons/md";
 import RightChartBars from "../charts/ChartBarsRight";
+import RightChartRows from "../charts/ChartRowsRight";
 import LeftChartBars from "../charts/ChartBarsLeft";
 import BottomChartRows from "../charts/ChartRows";
 import CenterChartPie from "../charts/ChartPie"
 import TopicMainBox from "./TopicMainBox";
 import ValuesComparison from "./ValuesComparison";
-
 const MainGrid = () => {
-  const valores = [158661.0, 14064.0, 36837.59];
-
   const topicsInfo = {
     taxaCondominio: {
       title: "Taxa de condomínio",
@@ -125,6 +123,7 @@ const MainGrid = () => {
 
           <ValuesComparison values={saldo.values} color={saldo.color} />
           <RightChartBars />
+          <RightChartRows />
         </div>
       </div>
 
