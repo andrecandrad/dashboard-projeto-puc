@@ -23,6 +23,10 @@ export default function Modal(props) {
 		setActiveForm(true);
 		setHasData(null);
 		setSelectedFile(null);
+		setNameCondominio(null);
+		setIdCondominio(null);
+		setPeriodoInicial(null);
+		setPeriodoFim(null);
 	};
 
 	const handleTurnBack = () => {
@@ -38,31 +42,38 @@ export default function Modal(props) {
 		setSelectedFile(null);
 	};
 
-	const handleChooseCondominio = async () => {
-		if (hasData === true ) {
-			const formData = new FormData();
-			formData.append('pdf_file', selectedFile);
+	const handleChooseCondominio = async (formattedPeriodoInicial, formattedPeriodoFim, idCondominioValue) => {
+		if (hasData === true) {
+			const payload = {
+				condominio_id: idCondominioValue,
+				mesAno_list: [formattedPeriodoInicial, formattedPeriodoFim],
+			};
 
 			try {
 				const response = await fetch('http://127.0.0.1:5000/exportar', {
 					method: 'POST',
-					body: formData,
-				});
-				if (response.ok) {
-					console.log('PDF enviado com sucesso!');
-					setActiveForm(true);
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(payload),
+				}).then((r) => r.json());
+
+				if (data) {
+					console.log('Dados carregados com sucesso');
+					console.log('Dados:', response);
 					setHasData(null);
 					setSelectedFile(null);
 				} else {
-					console.error('Falha em fazer o upload do PDF!');
+					console.error('Falha em enviar os dados!');
 				}
 			} catch (error) {
-				console.error('Erro ao fazer upload do arquivo:', error);
+				console.error('Erro ao enviar os dados:', error);
 			}
 		}
 	}
-	
-	const handleSendFile = async () => {
+
+	const handleSendFile = async (event) => {
+		event.preventDefault();
 		if (hasData === false && selectedFile) {
 			const formData = new FormData();
 			formData.append('pdf_file', selectedFile);
@@ -87,20 +98,34 @@ export default function Modal(props) {
 		}
 	}
 
-
 	const handleFileChange = (event) => {
 		setSelectedFile(event.target.files[0]);
 	};
 
-	const getDados  = (event) => {
-		setPeriodoInicial(event.target[1].value)
-		setPeriodoFim(event.target[2].value)
-		setIdCondominio(event.target[0].value)
-		event.preventDefault()
+	const handleCondominioNameChange = (event) => {
+		setNameCondominio(event.target.value);
 	};
 
-	const handleCondominioNameChange = (event) => {
-		setNameCondominio(event.target.value)
+	const getDados = (event) => {
+		event.preventDefault();
+	
+		const idCondominioValue = event.target[0].value;
+		const periodoInicialValue = event.target[1].value;
+		const periodoFimValue = event.target[2].value;
+	
+		const formatDate = (date) => {
+			const [year, month] = date.split('-');
+			return `${month}/${year}`;
+		};
+	
+		const formattedPeriodoInicial = formatDate(periodoInicialValue);
+		const formattedPeriodoFim = formatDate(periodoFimValue);
+	
+		setPeriodoInicial(formattedPeriodoInicial);
+		setPeriodoFim(formattedPeriodoFim);
+		setIdCondominio(idCondominioValue);
+	
+		handleChooseCondominio(formattedPeriodoInicial, formattedPeriodoFim, idCondominioValue);
 	};
 	
 
@@ -108,45 +133,35 @@ export default function Modal(props) {
 		<>
 			{props.showModal ? (
 				<>
-					<div
-						className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+					<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
 						<div className="relative w-auto my-6 mx-auto max-w-3xl">
-							{/*content*/}
-							<div
-								className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-								{/*header*/}
-								<div
-									className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+							<div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+								<div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
 									<h3 className="text-2xl font-semibold">Carregar dados</h3>
-									<button
-										className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-										onClick={() => props.setShowModal(false)}
-									>
-										<span
-											className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+									<button className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={handleCloseModal}>
+										<span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
 											<IoClose />
 										</span>
 									</button>
 								</div>
-								{/*body*/}
 
 								{activeForm && (
-									<div
-										className="text-center flex-row pl-7 pr-7 border-b border-solid border-blueGray-200 rounded-t">
+									<div className="text-center flex-row pl-7 pr-7 border-b border-solid border-blueGray-200 rounded-t">
 										<h3 className="text-lg font-semibold">Já possui dados carregados?</h3>
 										<div className="p-3">
-											<button
-												className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-												onClick={() => handleOptionClick(true)}
-											>
+											<button className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => handleOptionClick(true)}>
 												Sim
 											</button>
-											<button
-												className="bg-red-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-												onClick={() => handleOptionClick(false)}
-											>
+											<button className="bg-red-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => handleOptionClick(false)}>
 												Não
 											</button>
+										</div>
+										<div className="flex items-center justify-end pt-4 pb-4 pl-4 border-t border-solid border-blueGray-200 rounded-b">
+											<div className="flex items-center justify-end">
+												<button className="text-red-500 background-transparent font-bold uppercase text-sm outline-none focus:outline-none ease-linear transition-all duration-150" type="button" onClick={handleCloseModal}>
+													Fechar
+												</button>
+											</div>
 										</div>
 									</div>
 								)}
@@ -156,113 +171,90 @@ export default function Modal(props) {
 										<div className="relative p-6 flex-auto">
 											<form onSubmit={getDados}>
 												<div className="mb-4">
-													<label
-														className="block text-gray-700 text-sm font-bold mb-2"
-														htmlFor="condominio"
-													>
+													<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="condominio">
 														Condomínios
 													</label>
-													<select
-														id="condominio"
-														className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-													>
+													<select id="condominio" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 														<option defaultValue hidden>
 															Selecione o condomínio
 														</option>
 														{response &&
 															response.map((condominio) => (
 																<option key={condominio.id} value={condominio.id}>
-																	{condominio.nome} - {condominio.mesAno[0]} até{" "}
-																	{condominio.mesAno[condominio.mesAno.length - 1]}
+																	{condominio.nome} - {condominio.mesAno[0]} até {condominio.mesAno[condominio.mesAno.length - 1]}
 																</option>
 															))}
 													</select>
 												</div>
 												<div className="mb-4">
-													<label
-														className="block text-gray-700 text-sm font-bold mb-2"
-														htmlFor="period"
-													>
+													<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="period">
 														Selecione o período
 													</label>
 													<div className="flex space-x-2">
-														<input
-															type="month"
-															id="start-month"
-															className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-															// onChange={handlePeriodoInicialChange}
-														/>
-														<input
-															type="month"
-															id="end-month"
-															className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-															// onChange={handlePeriodoFimChange}
-														/>
+														<input type="month" id="start-month" className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+														<input type="month" id="end-month" className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
 													</div>
 												</div>
-												<button className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 ml-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-												type="submit"											>
-												Carregar
-											</button>
+												<div className="flex items-center justify-between pt-4 border-t border-solid border-blueGray-200 rounded-b">
+													{activeForm === false && (
+														<div className="flex items-center justify-start">
+															<button className="text-gray-500 background-transparent font-bold uppercase text-sm outline-none focus:outline-none ease-linear transition-all duration-150" type="button" onClick={handleTurnBack}>
+																Voltar
+															</button>
+														</div>
+													)}
+
+													<div className="flex items-center justify-end">
+														<button className="text-red-500 background-transparent font-bold uppercase text-sm outline-none focus:outline-none ease-linear transition-all duration-150" type="button" onClick={handleCloseModal}>
+															Fechar
+														</button>
+
+														<button className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 ml-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
+															Carregar
+														</button>
+													</div>
+												</div>
 											</form>
 										</div>
 									</>
 								)}
+
 								{hasData === false && (
 									<div className="relative p-6 flex-auto">
-										<form>
+										<form onSubmit={handleSendFile}>
 											<div className="mb-4">
-												<label className="block text-gray-700 text-sm font-bold mb-1 mt-2" htmlFor="nameUpload"> Nome do condomínio: </label>
-												<input
-													isRequired
-													type="text"
-													id="nameUpload"
-													className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-													onChange={handleCondominioNameChange}
-												/>
-												<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="upload" > Upload PDF </label>
-												<input
-													type="file"
-													id="upload"
-													className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-													onChange={handleFileChange}
-												/>
+												<label className="block text-gray-700 text-sm font-bold mb-1 mt-2" htmlFor="nameUpload">
+													Nome do condomínio:
+												</label>
+												<input type="text" id="nameUpload" className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={handleCondominioNameChange} />
+												<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="upload">
+													Upload PDF
+												</label>
+												<input type="file" id="upload" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={handleFileChange} />
+											</div>
+
+											<div className="flex items-center justify-between pt-4 border-t border-solid border-blueGray-200 rounded-b">
+												{activeForm === false && (
+													<div className="flex items-center justify-start">
+														<button className="text-gray-500 background-transparent font-bold uppercase text-sm outline-none focus:outline-none ease-linear transition-all duration-150" type="button" onClick={handleTurnBack}>
+															Voltar
+														</button>
+													</div>
+												)}
+
+												<div className="flex items-center justify-end">
+													<button className="text-red-500 background-transparent font-bold uppercase text-sm outline-none focus:outline-none ease-linear transition-all duration-150" type="button" onClick={handleCloseModal}>
+														Fechar
+													</button>
+
+													<button className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 ml-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
+														Carregar
+													</button>
+												</div>
 											</div>
 										</form>
 									</div>
 								)}
-
-								{/*footer*/}
-								<div className="flex items-center justify-between p-6 border-t border-solid border-blueGray-200 rounded-b">
-									{activeForm === false && (
-										<div className="flex items-center justify-start">
-											<button className="text-gray-500 background-transparent font-bold uppercase text-sm outline-none focus:outline-none ease-linear transition-all duration-150"
-												type="button"
-												onClick={() => handleTurnBack()}
-											>
-												Voltar
-											</button>
-										</div>
-									)}
-
-									<div className="flex items-center justify-end">
-										<button className="text-red-500 background-transparent font-bold uppercase text-sm outline-none focus:outline-none ease-linear transition-all duration-150"
-											type="button"
-											onClick={() => handleCloseModal()}
-										>
-											Fechar
-										</button>
-
-										{activeForm === false && (
-											<button className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 ml-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-												type="button"
-												onClick={() => handleSaveChanges()}
-											>
-												Carregar
-											</button>
-										)}
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
