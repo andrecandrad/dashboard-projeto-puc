@@ -13,8 +13,8 @@ const BottomRightChartRows = () => {
       }
     },
     grid: {
-      left: '3%',
-      right: '4%',
+      left: '1%',
+      right: '2%',
       bottom: '0%',
       containLabel: true
     },

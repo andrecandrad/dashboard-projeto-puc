@@ -6,7 +6,11 @@ import BottomChartRows from "../charts/ChartRows";
 import CenterChartPie from "../charts/ChartPie"
 import TopicMainBox from "./TopicMainBox";
 import ValuesComparison from "./ValuesComparison";
-const MainGrid = () => {
+import PostCondominiosPeriodo from "../Requests/PostCondominiosPeriodo.jsx";
+
+export default function MainGrid(props){
+
+
   const topicsInfo = {
     taxaCondominio: {
       title: "Taxa de condomínio",
@@ -75,6 +79,8 @@ const MainGrid = () => {
 
   const { taxaCondominio, despesas, saldo } = topicsInfo;
 
+  const response = PostCondominiosPeriodo();
+
   return (
     <div className="grid grid-cols-3 grid-rows-5 gap-2 bg-slate-100 p-7">
       <div className="rounded-sm col-span-1 row-span-3">
@@ -123,15 +129,15 @@ const MainGrid = () => {
 
           <ValuesComparison values={saldo.values} color={saldo.color} />
           <RightChartBars />
-          <RightChartRows />
+          <div id="RightChartRows">
+            <RightChartRows />
+          </div>
         </div>
       </div>
 
-      <div className="rounded-sm col-span-2 row-span-2 pt-8">
+      <div className="rounded-sm col-span-2 row-span-2 ">
         <BottomChartRows />
       </div>
     </div>
   );
 };
-
-export default MainGrid;

@@ -3,8 +3,7 @@ import Logo from "../assets/img/logo.png";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import Modal from "./Modal.jsx";
-
-const Header = () => {
+export default function Header(){
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -34,5 +33,3 @@ const Header = () => {
    </>
   );
 };
-
-export default Header;

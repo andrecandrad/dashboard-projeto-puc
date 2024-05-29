@@ -16,9 +16,9 @@ const BottomChartRows = () => {
         data: ['Taxa de condomínio', 'Despesas']
       },
       grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
+        left: '1%',
+        right: '3%',
+        bottom: '2.5%',
         containLabel: true
       },
       xAxis: [

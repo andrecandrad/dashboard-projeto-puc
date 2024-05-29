@@ -1,11 +1,13 @@
 import EChartsReact from "echarts-for-react";
+import PostCondominiosPeriodo from "../Requests/PostCondominiosPeriodo";
 
-const LeftChartBars = () => {
+
+export default function LeftChartBars(){
 
     const option = {
       grid: {
         width : 425,
-        left :  88,
+        left :  68,
         height: 220
        },      
        xAxis: {
@@ -15,12 +17,12 @@ const LeftChartBars = () => {
         }
       },
       yAxis: {
-        data: ['nov. 2023', 'out. 2023','set. 2023', 'Abril','Maio', 'Junho','Julho', 'Agosto','Setembro', 'Outubro','Novembro', 'Dezembro'],
+        data: ['nov. 2023', 'out. 2023', 'set. 2023', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro'],
       },
       series: [
         {
           type: 'bar',
-          data: [100, 200, 500, 600,100, 200, 500, 600,100, 200, 500, 600 ],
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
           label: {
             show: true,
             position: 'right',
@@ -39,5 +41,3 @@ const LeftChartBars = () => {
       
     return <EChartsReact option={option}/>
 }
-
-export default LeftChartBars;
