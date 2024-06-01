@@ -1,6 +1,20 @@
 import EChartsReact from "echarts-for-react";
 
-const BottomRightChartRows = () => {
+const BottomRightChartRows = ({ chartData }) => {
+  const saldos = chartData.saldos || {};
+
+  // Extract and sort the months
+  const months = Object.keys(saldos).sort();
+
+  // Map the saldos values to the corresponding months and format the months
+  const formattedMonths = months.map(month => {
+    const [monthPart, yearPart] = month.split('/');
+    const monthNames = ['jan.', 'fev.', 'mar.', 'abr.', 'mai.', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.'];
+    return `${monthNames[parseInt(monthPart, 10) - 1]}\n ${yearPart}`;
+  });
+
+  // Construct the source array
+  const source = months.map(month => saldos[month]);
 
   const option = {
     tooltip: {
@@ -13,8 +27,8 @@ const BottomRightChartRows = () => {
       }
     },
     grid: {
-      left: '1%',
-      right: '2%',
+      left: '0%',
+      right: '0%',
       bottom: '0%',
       containLabel: true
     },
@@ -22,7 +36,7 @@ const BottomRightChartRows = () => {
       {
         type: 'category',
         boundaryGap: false,
-        data: ['dez. 2022', 'jan. 2023', 'fev. 2023', 'mar. 2023', 'abr. 2023', 'mai. 2023', 'jun. 2023','jul. 2023', 'ago. 2023','set. 2023', 'out. 2023','nov. 2023']
+        data: formattedMonths
       }
     ],
     yAxis: [
@@ -39,14 +53,13 @@ const BottomRightChartRows = () => {
         emphasis: {
           focus: 'series'
         },
-        data: [100,50,300,600,800,600,500,800,1100,1000,1600,1200],
+        data: source,
         itemStyle: {
           color: '#047D9BB7',
         },
       }
     ]
   };
-
 
   return <EChartsReact option={option} />
 }

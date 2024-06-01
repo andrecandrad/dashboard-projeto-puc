@@ -7,9 +7,10 @@ import CenterChartPie from "../charts/ChartPie"
 import TopicMainBox from "./TopicMainBox";
 import ValuesComparison from "./ValuesComparison";
 import PostCondominiosPeriodo from "../Requests/PostCondominiosPeriodo.jsx";
+import PropTypes from "prop-types";
 
-export default function MainGrid(props){
 
+export default function MainGrid({ chartData }) {
 
   const topicsInfo = {
     taxaCondominio: {
@@ -98,7 +99,7 @@ export default function MainGrid(props){
             color={taxaCondominio.color}
           />
 
-          <LeftChartBars />
+          <LeftChartBars chartData={chartData} />
         </div>
       </div>
 
@@ -128,16 +129,20 @@ export default function MainGrid(props){
           />
 
           <ValuesComparison values={saldo.values} color={saldo.color} />
-          <RightChartBars />
+          <RightChartBars chartData={chartData} />
           <div id="RightChartRows">
-            <RightChartRows />
+            <RightChartRows chartData={chartData} />
           </div>
         </div>
       </div>
 
       <div className="rounded-sm col-span-2 row-span-2 ">
-        <BottomChartRows />
+        <BottomChartRows  chartData={chartData} />
       </div>
     </div>
   );
+}
+
+MainGrid.propTypes = {
+  chartData: PropTypes.array.isRequired,
 };

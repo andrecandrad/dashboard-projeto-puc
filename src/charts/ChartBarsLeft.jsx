@@ -1,43 +1,70 @@
 import EChartsReact from "echarts-for-react";
-import PostCondominiosPeriodo from "../Requests/PostCondominiosPeriodo";
 
+const RightChartBars = ({ chartData }) => {
+  const totais = chartData.totais || {};
 
-export default function LeftChartBars(){
+  // Extract and sort the months
+  const months = Object.keys(totais).sort();
 
-    const option = {
-      grid: {
-        width : 425,
-        left :  68,
-        height: 220
-       },      
-       xAxis: {
-        max: 'dataMax',
+  // Map the saldos values to the corresponding months and format the months
+  const formattedMonths = months.map(month => {
+    const [monthPart, yearPart] = month.split('/');
+    const monthNames = ['jan.', 'fev.', 'mar.', 'abr.', 'mai.', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.'];
+    return `${monthNames[parseInt(monthPart, 10) - 1]} ${yearPart}`;
+  });
+
+  // Construct the source array
+  const source = [['amount', 'product']];
+  months.forEach((month, index) => {
+    source.push([totais[month].total_receitas, formattedMonths[index]]);
+  });
+
+  const option = {
+    dataset: {
+      source: source
+    },
+    grid: {
+      width: 450,
+      left: 64,
+      height: 220
+    },
+    xAxis: {
+      axisLabel: {
         formatter: (value) => {
           return (+value).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
         }
+      }
+    },
+    yAxis: { type: 'category' },
+    tooltip: {
+      trigger: 'item',
+      formatter: (params) => {
+        return (params.value[1] + " - R$ " + (params.value[0]).toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
       },
-      yAxis: {
-        data: ['nov. 2023', 'out. 2023', 'set. 2023', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto','Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      },
-      series: [
-        {
-          type: 'bar',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-          label: {
-            show: true,
-            position: 'right',
-            valueAnimation: true,
-            formatter: (params) => {
-              return `R$ ${(params.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-            },
+    },
+    series: [
+      {
+        type: 'bar',
+        encode: {
+          x: 'amount',
+          y: 'product'
+        },
+        label: {
+          show: true,
+          position: 'right',
+          formatter: (params) => {
+            return `R$ ${(+params.value[0]).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
           },
-          itemStyle: {
-            color: '#16a34a',
-          },
-        }
-      ],
-    };
-    
-      
-    return <EChartsReact option={option}/>
-}
+          valueAnimation: true
+        },
+        itemStyle: {
+          color: '#16a34a',
+        },
+      }
+    ]
+  };
+
+  return <EChartsReact option={option} />;
+};
+
+export default RightChartBars;

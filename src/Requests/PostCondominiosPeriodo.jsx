@@ -3,7 +3,8 @@ async function PostCondominiosPeriodo(hasData, formattedPeriodoInicial, formatte
 	if (hasData === true) {
 		const payload = {
 			condominio_id: idCondominioValue,
-			mesAno_list: [formattedPeriodoInicial, formattedPeriodoFim],
+			mesAnoInicio: formattedPeriodoInicial,
+			mesAnoFim: formattedPeriodoFim
 		};
 
 		try {
@@ -16,8 +17,6 @@ async function PostCondominiosPeriodo(hasData, formattedPeriodoInicial, formatte
 			}).then((r) => r.json());
 
 			if (response) {
-				console.log('Dados carregados com sucesso');
-				console.log('Dados:', response);
 				return response;
 			} else {
 				console.error('Falha em enviar os dados!');

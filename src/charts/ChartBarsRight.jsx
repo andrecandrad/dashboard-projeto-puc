@@ -1,23 +1,27 @@
 import EChartsReact from "echarts-for-react";
 
-const RightChartBars = () => {
+const RightChartBars = ({ chartData }) => {
+  const saldos = chartData.saldos || {};
+
+  // Extract and sort the months
+  const months = Object.keys(saldos).sort();
+
+  // Map the saldos values to the corresponding months and format the months
+  const formattedMonths = months.map(month => {
+    const [monthPart, yearPart] = month.split('/');
+    const monthNames = ['jan.', 'fev.', 'mar.', 'abr.', 'mai.', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.'];
+    return `${monthNames[parseInt(monthPart, 10) - 1]} ${yearPart}`;
+  });
+
+  // Construct the source array
+  const source = [['amount', 'product']];
+  months.forEach((month, index) => {
+    source.push([saldos[month], formattedMonths[index]]);
+  });
+
   const option = {
     dataset: {
-      source: [
-        ['amount', 'product'],
-        [132654, 'jan. 2023'],
-        [645789, 'fev. 2023'],
-        [392584, 'mar. 2023'],
-        [457812, 'abr. 2023'],
-        [895623, 'mai. 2023'],
-        [657821, 'jun. 2023'],
-        [455678, 'jul. 2023'],
-        [121223, 'ago. 2023'],
-        [899756, 'set. 2022'],
-        [456231, 'out. 2023'],
-        [654578, 'nov. 2023'],
-        [231245, 'dez. 2023']
-      ]
+      source: source
     },
     grid: {
       width: 450,

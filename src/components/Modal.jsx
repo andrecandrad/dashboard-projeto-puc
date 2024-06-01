@@ -6,6 +6,7 @@ import PostCondominiosPeriodo from "../Requests/PostCondominiosPeriodo.jsx";
 import PostCondominioFile from "../Requests/PostCondominioPDF.jsx";
 
 export default function Modal(props) {
+    const { setShowModal, setChartData } = props;
     const [hasData, setHasData] = useState(null);
     const [activeForm, setActiveForm] = useState(true);
     const [nameCondominio, setNameCondominio] = useState("");
@@ -22,7 +23,7 @@ export default function Modal(props) {
     };
 
     const handleCloseModal = () => {
-        props.setShowModal(false);
+        setShowModal(false);
         setActiveForm(true);
         setHasData(null);
         setSelectedFile(null);
@@ -53,6 +54,7 @@ export default function Modal(props) {
 			setActiveForm(true);
 			setHasData(null);
 			setSelectedFile(null);
+            setShowModal(false);
         } else {
             console.error("Por favor, selecione um arquivo e forneça o nome do condomínio.");
         }
@@ -71,7 +73,12 @@ export default function Modal(props) {
         setPeriodoInicial(formattedPeriodoInicial);
         setPeriodoFim(formattedPeriodoFim);
         setIdCondominio(idCondominioValue);
-        await PostCondominiosPeriodo(hasData, formattedPeriodoInicial, formattedPeriodoFim, idCondominioValue);
+        const data = await PostCondominiosPeriodo(hasData, formattedPeriodoInicial, formattedPeriodoFim, idCondominioValue);
+        await setChartData(data); 
+        setActiveForm(true);
+        setHasData(null);
+        setSelectedFile(null);
+        setShowModal(false);
     };
 
     return (
@@ -213,4 +220,5 @@ export default function Modal(props) {
 Modal.propTypes = {
     showModal: PropTypes.bool.isRequired,
     setShowModal: PropTypes.func.isRequired,
+    setChartData: PropTypes.array.isRequired,
 };
