@@ -179,7 +179,7 @@ export default function MainGrid({ chartData }) {
           <ValuesComparison values={despesas.values} color={despesas.color} />
         </div>
 
-        <CenterChartPie />
+        <CenterChartPie chartData={chartData}/>
       </div>
 
       <div className="rounded-sm col-span-1 row-span-5">

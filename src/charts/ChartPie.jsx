@@ -1,6 +1,28 @@
 import EChartsReact from "echarts-for-react";
 
-const CenterChartPie = () => {
+const CenterChartPie = ({ chartData }) => {
+
+
+  const categoriasDespesas = [
+    'Custeio',
+    'Despesas administrativas',
+    'Encargos',
+    'Manutenções e instalações',
+  ];
+
+  const totalDespesas = categoriasDespesas.reduce((acc, categoria) => {
+    acc[categoria] = 0;
+    Object.values(chartData.transacoes).forEach(mes => {
+      if (mes.Despesa[categoria] !== undefined) {
+        acc[categoria] += mes.Despesa[categoria];
+      }
+    });
+    return acc;
+  }, {});
+
+  const data1 = Object.entries(totalDespesas).map(([name, value]) => ({value,name,}));
+
+  
   const data = [
     { value: 335, name: 'Folha de pagamento' },
     { value: 310, name: 'Manutenção e instalações' },
@@ -34,7 +56,7 @@ const CenterChartPie = () => {
     },
     series: [
       {
-        name: 'Access From',
+        name: 'Despesa',
         type: 'pie',
         radius: ['40%', '65%'],
         center: ['50%', '165'],
