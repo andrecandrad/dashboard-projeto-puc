@@ -1,67 +1,96 @@
 import EChartsReact from "echarts-for-react";
 
-const CenterChartPie = () => {
-  const data = [
-    { value: 335, name: 'Folha de pagamento' },
-    { value: 310, name: 'Manutenção e instalações' },
-    { value: 274, name: 'Custeio' },
-    { value: 235, name: 'Encargos' },
-    { value: 400, name: 'Despesas administrativas' },
-  ];
+const CenterChartPie = ({ chartData }) => {
+  const months = Object.keys(chartData.transacoes);
 
+  let folhaPagamento = 0;
+  let manutencaoInstalacoes = 0;
+  let custeio = 0;
+  let encargos = 0;
+  let despesasAdm = 0;
+
+  months.forEach((m) => {
+    const despesas = chartData.transacoes[m].Despesa;
+
+    const tiposDeDespesas = Object.keys(despesas);
+
+    tiposDeDespesas.forEach((d) => {
+      const despesaValue = parseFloat(despesas[d]);
+
+      switch (d) {
+        case "Folha de pagamento":
+          folhaPagamento += despesaValue;
+          break;
+
+        case "Manutenções e instalações":
+          manutencaoInstalacoes += despesaValue;
+          break;
+
+        case "Custeio":
+          custeio += despesaValue;
+          break;
+
+        case "Encargos":
+          encargos += despesaValue;
+          break;
+
+        case "Despesas administrativas":
+          despesasAdm += despesaValue;
+          break;
+
+        default:
+          break;
+      }
+    });
+  });
+
+  const data = [
+    { value: folhaPagamento, name: "Folha de pagamento" },
+    { value: manutencaoInstalacoes, name: "Manutenções e instalações" },
+    { value: custeio, name: "Custeio" },
+    { value: encargos, name: "Encargos" },
+    { value: despesasAdm, name: "Despesas administrativas" },
+  ].filter((d) => d.value > 0);
 
   const option = {
-    grid:{
-      width: 20,
-      height: 20
-    },
     tooltip: {
-      trigger: 'item',
-      formatter: '{a} <br/>{b}: {d}%'
+      trigger: "item",
     },
     legend: {
-      orient: 'horizontal',
-      align: 'left',
-      top: '10'
-    },
-    visualMap: {
-      show: false,
-      min: 80,
-      max: 600,
-      inRange: {
-        colorLightness: [0, 1]
-      }
+      top: "5%",
+      left: "center",
     },
     series: [
       {
-        name: 'Access From',
-        type: 'pie',
-        radius: ['40%', '65%'],
-        center: ['50%', '165'],
-        data: data.sort((a, b) => a.value - b.value),
-        roseType: 'radius',
+        name: "Access From",
+        type: "pie",
+        radius: ["30%", "70%"],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 0,
+          borderColor: "#fff",
+          borderWidth: 0,
+        },
         label: {
-          show: true,
-          color: '#000',
+          show: false,
+          position: "center",
+        },
+        emphasis: {
+          label: {
+            show: false,
+            fontSize: 40,
+            fontWeight: "bold",
+          },
         },
         labelLine: {
-          lineStyle: {
-            color: '#000'
-          },
-          smooth: 0.3,
-          length: 7,
-          length2: 20
+          show: false,
         },
-        itemStyle: {
-          color: '#c23531',
-        },
-        animationType: 'scale',
-        animationEasing: 'elasticOut',
-      }
-    ]
+        data: data,
+      },
+    ],
   };
 
-  return <EChartsReact option={option}/>
-}
+  return <EChartsReact option={option} />;
+};
 
 export default CenterChartPie;
