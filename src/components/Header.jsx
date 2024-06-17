@@ -18,7 +18,7 @@ export default function Header(props){
                   className="bg-transparent hover:bg-slate-600 text-slate-700 font-semibold hover:text-white py-2 px-3.5 border-2 border-slate-700 hover:border-transparent rounded-xl"
                   onClick={() => props.setShowModal(true)}
                  >
-                   Carregar dados
+                  Importar dados 
                  </button>
                </Tippy>
              </div>

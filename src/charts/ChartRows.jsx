@@ -1,6 +1,6 @@
 import EChartsReact from "echarts-for-react";
 
-const BottomChartRows = ({chartData}) => {
+const BottomChartRows = ({ chartData }) => {
 
   const total_despesas = chartData.totais || {};
 
@@ -22,83 +22,143 @@ const BottomChartRows = ({chartData}) => {
 
 
 
-    const option = {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            backgroundColor: '#6a7985'
-          }
+  // const option = {
+  //   tooltip: {
+  //     trigger: 'axis',
+  //     axisPointer: {
+  //       type: 'cross',
+  //       label: {
+  //         backgroundColor: '#6a7985'
+  //       }
+  //     }
+  //   },
+  //   legend: {
+  //     data: ['Taxa de condomínio', 'Despesas']
+  //   },
+  //   grid: {
+  //     left: '1%',
+  //     right: '3%',
+  //     bottom: '2.5%',
+  //     containLabel: true
+  //   },
+  //   xAxis: [
+  //     {
+  //       type: 'category',
+  //       data: formattedMonths // Adaptar para seus dados reais
+  //     }
+  //   ],
+  //   yAxis: [
+  //     {
+  //       type: 'value'
+  //     }
+  //   ],
+  //   series: [
+  //     {
+  //       name: 'Despesas',
+  //       type: 'line',
+  //       stack: 'Total',
+  //       label: {
+  //         show: true,
+  //         position: 'top',
+  //         formatter: (params) => {
+  //           return `R$ ${(+params.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+  //         },
+  //       },
+  //       areaStyle: {},
+  //       emphasis: {
+  //         focus: 'series'
+  //       },
+  //       data: source1, // Adaptar para seus dados reais
+  //       itemStyle: {
+  //         color: '#B6060081',
+  //       }
+  //     },
+  //     {
+  //       name: 'Taxa de condomínio',
+  //       type: 'line',
+  //       stack: 'Total',
+  //       label: {
+  //         show: true,
+  //         position: 'top',
+  //         formatter: (params) => {
+  //           return `R$ ${(+params.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+  //         },
+  //       },
+  //       areaStyle: {},
+  //       emphasis: {
+  //         focus: 'series'
+  //       },
+  //       data: source2, // Adaptar para seus dados reais
+  //       itemStyle: {
+  //         color: '#09A84491',
+  //       }
+  //     }
+  //   ]
+  // };
+
+
+  const option = {
+    xAxis: {
+      type: 'category',
+      data: formattedMonths
+    },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
         }
-      },
-      legend: {
-        data: ['Taxa de condomínio', 'Despesas']
-      },
-      grid: {
-        left: '1%',
-        right: '3%',
-        bottom: '2.5%',
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: 'category',
-          boundaryGap: false,
-          data: formattedMonths
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value'
-        }
-      ],
-      series: [
-        {
-          name: 'Despesas',
-          type: 'line',
-          stack: 'Total',
-          label: {
-            show: true,
-            position: 'top',
-            formatter: (params) => {
-              return `R$ ${(+params.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-            },
-          },
-          areaStyle: {},
-          emphasis: {
-            focus: 'series'
-          },
-          data: source1,
-          itemStyle: {
-            color: '#B6060081',
+      }
+    },
+    legend: {
+      data: ['Taxa de condomínio', 'Despesas']
+    },
+    grid: {
+      left: '1%',
+      right: '3%',
+      bottom: '2.5%',
+      containLabel: true
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        name: 'Taxa de condomínio',
+        data: source1,
+        type: 'line',
+        label: {
+          show: false,
+          position: 'top',
+          formatter: (params) => {
+            return `R$ ${(+params.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
           },
         },
-        {
-          name: 'Taxa de condomínio',
-          type: 'line',
-          stack: 'Total',
-          label: {
-            show: true,
-            position: 'top',
-            formatter: (params) => {
-              return `R$ ${(+params.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-            },
-          },
-          areaStyle: {},
-          emphasis: {
-            focus: 'series'
-          },
-          data: source2,
-          itemStyle: {
-            color: '#09A84491',
-          },
+        itemStyle: {
+          color: '#B6060081',
         }
-      ]
-    };
-    
-      
-    return <EChartsReact option={option}/>
+      },
+      {
+        name: 'Despesas',
+        data: source2,
+        type: 'line',
+        label: {
+          show: false,
+          position: 'top',
+          formatter: (params) => {
+            return `R$ ${(+params.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+          },
+        },
+        itemStyle: {
+          color: '#09A84491',
+        }
+      }
+    ]
+  };
+
+
+  return <EChartsReact option={option} />
 }
 
 export default BottomChartRows;

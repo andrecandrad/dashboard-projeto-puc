@@ -15,7 +15,7 @@ export default function Modal(props) {
     const [periodoInicial, setPeriodoInicial] = useState(null);
     const [periodoFim, setPeriodoFim] = useState(null);
 
-    const ListaCondominios = GetListaCondominios();
+    const  ListaCondominios = GetListaCondominios();
 
     const handleOptionClick = (value) => {
         setHasData(value);
@@ -89,7 +89,7 @@ export default function Modal(props) {
                         <div className="relative w-auto my-6 mx-auto max-w-3xl">
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                                    <h3 className="text-2xl font-semibold">Carregar dados</h3>
+                                    <h3 className="text-2xl  font-semibold">Dados</h3>
                                     <button className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={handleCloseModal}>
                                         <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                                             <IoClose />
@@ -99,13 +99,13 @@ export default function Modal(props) {
 
                                 {activeForm && (
                                     <div className="text-center flex-row pl-7 pr-7 border-b border-solid border-blueGray-200 rounded-t">
-                                        <h3 className="text-lg font-semibold">Já possui dados carregados?</h3>
+                                        <h3 className="text-lg font-semibold">O que você deseja fazer?</h3>
                                         <div className="p-3">
                                             <button className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => handleOptionClick(true)}>
-                                                Sim
+                                                Gerar Relatórios
                                             </button>
                                             <button className="bg-red-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => handleOptionClick(false)}>
-                                                Não
+                                                Upload PDF
                                             </button>
                                         </div>
                                         <div className="flex items-center justify-end pt-4 pb-4 pl-4 border-t border-solid border-blueGray-200 rounded-b">
@@ -162,7 +162,7 @@ export default function Modal(props) {
                                                         </button>
 
                                                         <button className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 ml-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
-                                                            Carregar
+                                                            Gerar relatórios
                                                         </button>
                                                     </div>
                                                 </div>
@@ -200,7 +200,7 @@ export default function Modal(props) {
                                                     </button>
 
                                                     <button className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 ml-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
-                                                        Carregar
+                                                        Upload
                                                     </button>
                                                 </div>
                                             </div>

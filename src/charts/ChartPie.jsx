@@ -1,6 +1,6 @@
 import EChartsReact from "echarts-for-react";
 
-const CenterChartPie = ({ chartData }) => {
+const CenterChartPie = ({ chartData}) => {
   const months = Object.keys(chartData.transacoes);
 
   let folhaPagamento = 0;
@@ -62,7 +62,6 @@ const CenterChartPie = ({ chartData }) => {
     },
     series: [
       {
-        name: "Access From",
         type: "pie",
         radius: ["30%", "70%"],
         avoidLabelOverlap: false,
