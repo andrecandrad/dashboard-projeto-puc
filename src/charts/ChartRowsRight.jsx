@@ -28,9 +28,9 @@ const BottomRightChartRows = ({ chartData }) => {
     },
     grid: {
       left: '0%',
-      right: '0%',
-      bottom: '14%',
-      top: '8%',
+      right: '3%',
+      bottom: '13%',
+      top: '4%',
       containLabel: true
     },
     xAxis: [

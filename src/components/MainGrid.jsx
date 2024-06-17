@@ -141,15 +141,15 @@ export default function MainGrid({ chartData }) {
 
   if (!Object.keys(chartData).length)
     return (
-      <div className="w-screen h-screen flex items-center justify-center">
-        <p>carregue dados</p>
+      <div className="flex items-center justify-center pt-56">
+        <p className="text-3xl font-bold">Dados ainda não importados</p>
       </div>
     );
 
   return (
-    <div className="grid grid-cols-3 grid-rows-5 gap-2 bg-slate-100 p-7">
+    <div className="grid grid-cols-3 grid-rows-5bg-slate-100 p-2">
       <div className="rounded-sm col-span-1 row-span-3">
-        <div className="p-3">
+        <div className="p-1">
           <TopicMainBox
             title={taxaCondominio.title}
             valueDescription={taxaCondominio.valueDescription}
@@ -168,7 +168,7 @@ export default function MainGrid({ chartData }) {
       </div>
 
       <div className="rounded-sm  col-span-1 row-span-3">
-        <div className="p-3">
+        <div className="p-1">
           <TopicMainBox
             title={despesas.title}
             valueDescription={despesas.valueDescription}
@@ -183,7 +183,7 @@ export default function MainGrid({ chartData }) {
       </div>
 
       <div className="rounded-sm col-span-1 row-span-5">
-        <div className="p-3">
+        <div className="p-1">
           <TopicMainBox
             title={saldo.title}
             valueDescription={saldo.valueDescription}

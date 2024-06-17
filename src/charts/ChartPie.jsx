@@ -1,6 +1,6 @@
 import EChartsReact from "echarts-for-react";
 
-const CenterChartPie = ({ chartData}) => {
+const CenterChartPie = ({ chartData }) => {
   const months = Object.keys(chartData.transacoes);
 
   let folhaPagamento = 0;
@@ -44,6 +44,15 @@ const CenterChartPie = ({ chartData}) => {
     });
   });
 
+  const formatNumber = (number) => {
+    return number.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
   const data = [
     { value: folhaPagamento, name: "Folha de pagamento" },
     { value: manutencaoInstalacoes, name: "Manutenções e instalações" },
@@ -52,9 +61,15 @@ const CenterChartPie = ({ chartData}) => {
     { value: despesasAdm, name: "Despesas administrativas" },
   ].filter((d) => d.value > 0);
 
+  const total = data.reduce((acc, curr) => acc + curr.value, 0);
+
   const option = {
     tooltip: {
       trigger: "item",
+      formatter: (params) => {
+        const percent = ((params.value / total) * 100).toFixed(2);
+        return `${params.name}: ${formatNumber(params.value)} (${percent}%)`;
+      },
     },
     legend: {
       top: "5%",
