@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
+ 
 *{
-    overflow: hidden;
-} */
+    overflow-x: hidden;
+}
 
 #RightChartRows{
     margin-top: 55px;

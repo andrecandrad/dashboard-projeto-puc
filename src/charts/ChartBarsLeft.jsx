@@ -30,11 +30,7 @@ const RightChartBars = ({ chartData }) => {
       top: 30
     },
     xAxis: {
-      axisLabel: {
-        formatter: (value) => {
-          return (+value).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-        }
-      }
+      axisLabel: {}
     },
     yAxis: { type: 'category' },
     tooltip: {
