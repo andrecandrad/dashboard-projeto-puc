@@ -142,7 +142,7 @@ export default function MainGrid({ chartData }) {
   if (!Object.keys(chartData).length)
     return (
       <div className="flex items-center justify-center pt-56">
-        <p className="text-3xl font-bold">Dados ainda não importados</p>
+        <p className="text-2xl font-bold">Dados ainda não importados</p>
       </div>
     );
 
