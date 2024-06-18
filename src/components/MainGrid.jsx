@@ -6,8 +6,6 @@ import BottomChartRows from "../charts/ChartRows";
 import CenterChartPie from "../charts/ChartPie";
 import TopicMainBox from "./TopicMainBox";
 import ValuesComparison from "./ValuesComparison";
-import PostCondominiosPeriodo from "../Requests/PostCondominiosPeriodo.jsx";
-import PropTypes from "prop-types";
 
 export default function MainGrid({ chartData }) {
   const valoresTotais = chartData.totais || {};

@@ -10,9 +10,6 @@ export default function Modal(props) {
 	const [activeForm, setActiveForm] = useState(true);
 	const [nameCondominio, setNameCondominio] = useState("");
 	const [selectedFile, setSelectedFile] = useState(null);
-	const [idCondominio, setIdCondominio] = useState(null);
-	const [periodoInicial, setPeriodoInicial] = useState(null);
-	const [periodoFim, setPeriodoFim] = useState(null);
 	const [ListaCondominios, setListaCondominios] = useState([]);
 	const [loading, setLoading] = useState(false); // Estado de carregamento
 
@@ -24,7 +21,7 @@ export default function Modal(props) {
 	};
 
 	useEffect(() => {
-		fetchListaCondominios();
+		fetchListaCondominios().then(r => r.results);
 	}, []);
 
 	const handleOptionClick = (value) => {
@@ -38,9 +35,6 @@ export default function Modal(props) {
 		setHasData(null);
 		setSelectedFile(null);
 		setNameCondominio("");
-		setIdCondominio(null);
-		setPeriodoInicial(null);
-		setPeriodoFim(null);
 	};
 
 	const handleTurnBack = () => {
@@ -84,9 +78,6 @@ export default function Modal(props) {
 		console.log(event.target[1].value);
 		const formattedPeriodoFim = formatDate(event.target[2].value);
 		const idCondominioValue = event.target[0].value;
-		setPeriodoInicial(formattedPeriodoInicial);
-		setPeriodoFim(formattedPeriodoFim);
-		setIdCondominio(idCondominioValue);
 		const data = await PostCondominiosPeriodo(hasData, formattedPeriodoInicial, formattedPeriodoFim, idCondominioValue);
 		await setChartData(data);
 		setActiveForm(true);
@@ -95,26 +86,6 @@ export default function Modal(props) {
 		setShowModal(false);
 		await fetchListaCondominios(); // Update condo list
 	};
-
-
-	ListaCondominios.map((condominio) => {
-		let dataInicio = condominio.mesAno[0];
-		let partes = dataInicio.split("/");
-		let dataCorrigida = `${partes[1]}-${partes[0]}`;
-		console.log(dataCorrigida);
-
-		let dataFinal = condominio.mesAno[condominio.mesAno.length - 1];
-		let partes2 = dataFinal.split("/");
-		let dataCorrigida2 = `${partes2[1]}-${partes2[0]}`;
-		console.log(dataCorrigida2);
-
-		return {
-			mesInicial: dataCorrigida,
-			mesFinal: dataCorrigida2
-		};
-
-
-	});
 
 
 	return (
